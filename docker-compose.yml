@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+  web:
+    build:
+      context: docker/dev/nginx
+    volumes:
+      - ./:/app
+    ports:
+      - "8080:80"
+    user: "1000:1000"
+    links:
+      - php
+
+  php:
+    build:
+      context: docker/dev/php
+    volumes:
+      - ./:/app
+    user: "1000:1000"
