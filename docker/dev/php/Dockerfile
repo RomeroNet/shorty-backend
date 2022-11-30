@@ -7,4 +7,6 @@ RUN apt-get update && apt-get install -y \
     git \
     && rm -rf /var/lib/apt/lists/*
 
+RUN docker-php-ext-install bcmath
+
 COPY --from=composer /usr/bin/composer /usr/bin/composer
