@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http;
+namespace App\Infrastructure\Http;
 
 use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
 use Illuminate\Auth\Middleware\Authorize;
