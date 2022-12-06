@@ -1,8 +1,8 @@
 FROM composer AS dependencies
 
-ADD . /app/
+ADD . /app
 
-WORKDIR /app/
+WORKDIR /app
 
 RUN composer install --no-dev --optimize-autoloader
 

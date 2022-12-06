@@ -64,7 +64,7 @@ jobs:
       - name: Build Docker image for PHP
         uses: docker/build-push-action@v3
         with:
-          context: ./docker/prod/php
+          context: .
 
   test-prod-nginx-build:
     runs-on: ubuntu-latest
@@ -78,4 +78,4 @@ jobs:
       - name: Build Docker image for web
         uses: docker/build-push-action@v3
         with:
-          context: ./docker/prod/nginx
+          context: .
