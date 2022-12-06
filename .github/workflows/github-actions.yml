@@ -65,6 +65,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
+          dockerfile: docker/prod/php/Dockerfile
 
   test-prod-nginx-build:
     runs-on: ubuntu-latest
@@ -79,3 +80,4 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
+          dockerfile: docker/prod/nginx/Dockerfile
