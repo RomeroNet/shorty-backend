@@ -1,0 +1,18 @@
+version: "3.8"
+services:
+  web:
+    build:
+      context: docker/dev/nginx
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/app
+
+  php:
+    build:
+      context: docker/dev/php
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/app
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=1

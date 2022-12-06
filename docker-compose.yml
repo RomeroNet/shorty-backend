@@ -1,23 +1,22 @@
 version: "3.8"
 services:
   web:
+    container_name: laravel-web
     build:
-      context: docker/dev/nginx
-    volumes:
-      - ./:/app
+      context: .
+      dockerfile: docker/prod/nginx/Dockerfile
     ports:
       - "8080:80"
     user: "1000:1000"
-
     links:
       - php
 
   php:
+    container_name: laravel-php
     build:
-      context: docker/dev/php
-    volumes:
-      - ./:/app
+      context: .
+      dockerfile: docker/prod/php/Dockerfile
     user: "1000:1000"
     environment:
-      - APP_ENV=local
-      - APP_DEBUG=1
+      - APP_ENV=production
+      - APP_DEBUG=0
