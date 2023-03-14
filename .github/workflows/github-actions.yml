@@ -18,11 +18,11 @@ jobs:
       - name: Set up .env file
         run: cp .env.example .env
 
-      - name: Generate encryption key
-        run: docker-compose -f docker-compose.yml -f docker-compose-dev.yml run --rm php bash -c "php artisan key:generate"
-
       - name: Prepare test Docker image
         run: make build-dev
+
+      - name: Generate encryption key
+        run: docker-compose -f docker-compose.yml -f docker-compose-dev.yml run --rm php bash -c "php artisan key:generate"
 
       - name: Run tests
         run: make test
