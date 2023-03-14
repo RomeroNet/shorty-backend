@@ -5,6 +5,8 @@ start-dev:
 	docker-compose -f docker-compose.yml -f docker-compose-dev.yml up -d
 stop-dev:
 	docker-compose -f docker-compose.yml -f docker-compose-dev.yml down
+shell:
+	docker-compose -f docker-compose.yml -f docker-compose-dev.yml run --rm php bash
 
 build:
 	docker-compose -f docker-compose.yml build
