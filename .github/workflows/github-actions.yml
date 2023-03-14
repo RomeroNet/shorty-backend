@@ -22,7 +22,7 @@ jobs:
         run: php artisan key:generate
 
       - name: Run tests
-        run: php vendor/bin/phpunit
+        run: php vendor/bin/pest
 
   test-dev-php-build:
     runs-on: ubuntu-latest
