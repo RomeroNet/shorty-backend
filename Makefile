@@ -7,6 +7,8 @@ stop-dev:
 	docker-compose -f docker-compose.yml -f docker-compose-dev.yml down
 shell:
 	docker-compose -f docker-compose.yml -f docker-compose-dev.yml run --rm php bash
+test:
+	docker-compose -f docker-compose.yml -f docker-compose-dev.yml run --rm php vendor/bin/pest
 
 build:
 	docker-compose -f docker-compose.yml build
