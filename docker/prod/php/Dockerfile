@@ -6,7 +6,7 @@ WORKDIR /app
 
 RUN composer install --no-dev --optimize-autoloader
 
-FROM php:8.1-fpm
+FROM php:8.2.3-fpm
 
 RUN docker-php-ext-install bcmath
 
