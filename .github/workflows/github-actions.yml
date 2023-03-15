@@ -18,6 +18,9 @@ jobs:
       - name: Set up .env file
         run: cp .env.example .env
 
+      - name: Change permissions for Actions user
+        run: sed -i 's/"1000:1000"/"1001:115"/g' docker-compose.yml
+
       - name: Prepare test Docker image
         run: make build-dev
 
