@@ -12,17 +12,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install dependencies
-        run: composer install
+      - name: Set up BuildX
+        uses: docker/setup-buildx-action@v2
 
       - name: Set up .env file
         run: cp .env.example .env
 
+      - name: Change permissions for Actions user
+        run: sed -i 's/"1000:1000"/"1001:115"/g' docker-compose.yml
+
+      - name: Prepare test Docker image
+        run: make build-dev
+
       - name: Generate encryption key
-        run: php artisan key:generate
+        run: docker-compose -f docker-compose.yml -f docker-compose-dev.yml run --rm php bash -c "php artisan key:generate"
 
       - name: Run tests
-        run: php vendor/bin/phpunit
+        run: make test
 
   test-dev-php-build:
     runs-on: ubuntu-latest
