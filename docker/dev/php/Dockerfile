@@ -1,4 +1,4 @@
-FROM php:8.2.3-fpm
+FROM php:8.2.5-fpm
 
 WORKDIR /app
 
@@ -9,4 +9,4 @@ RUN apt-get update && apt-get install -y \
 
 RUN docker-php-ext-install bcmath
 
-COPY --from=composer /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2.5.5 /usr/bin/composer /usr/bin/composer
