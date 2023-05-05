@@ -1,4 +1,4 @@
-FROM nginx:mainline
+FROM nginx:1.24.0
 
 RUN touch /var/run/nginx.pid
 
