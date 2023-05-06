@@ -16,3 +16,9 @@ services:
     environment:
       - APP_ENV=local
       - APP_DEBUG=1
+
+  db:
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: dev
