@@ -1,4 +1,7 @@
-FROM nginx:1.24.0
+FROM nginx:1.25.1
+
+RUN apt-get update && apt-get upgrade -y \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN touch /var/run/nginx.pid
 
