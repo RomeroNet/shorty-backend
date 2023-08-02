@@ -14,6 +14,7 @@ use Illuminate\Support\Carbon;
  * @property int $visit_count
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ *
  * @method static self|null find(string $uuid)
  * @method static Builder|Url newModelQuery()
  * @method static Builder|Url newQuery()
@@ -28,7 +29,9 @@ use Illuminate\Support\Carbon;
 class Url extends Model
 {
     protected $primaryKey = 'uuid';
+
     protected $keyType = 'string';
+
     public $incrementing = false;
 
     protected $guarded = [
@@ -54,6 +57,7 @@ class Url extends Model
         $this->visit_count = $url->visitCount;
         $this->created_at = $url->createdAt;
         $this->updated_at = $url->updatedAt;
+
         return $this;
     }
 }

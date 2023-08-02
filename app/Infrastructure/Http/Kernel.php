@@ -36,8 +36,8 @@ class Kernel extends HttpKernel
      */
     protected $middlewareGroups = [
         '*' => [
-            'throttle:60,1'
-        ]
+            'throttle:60,1',
+        ],
     ];
 
     /**

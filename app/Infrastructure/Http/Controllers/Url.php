@@ -17,6 +17,7 @@ class Url extends Controller
     {
         $origin = $request->input('origin');
         $response = $this->fetchUrl->handle($origin);
+
         return response()->json($response->url->toArray());
     }
 }
