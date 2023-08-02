@@ -23,7 +23,7 @@ services:
 
   db:
     container_name: shorty-db
-    image: mysql:8.0.33
+    image: mysql:8.0.34
     environment:
       MYSQL_DATABASE: shorty
     volumes:

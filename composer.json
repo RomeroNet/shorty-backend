@@ -9,15 +9,16 @@
         "laravel/tinker": "^2"
     },
     "require-dev": {
-        "roave/security-advisories": "dev-latest",
+        "barryvdh/laravel-ide-helper": "^2",
         "fakerphp/faker": "^1",
         "laravel/pint": "^1",
         "mockery/mockery": "^1",
         "nunomaduro/collision": "^7",
-        "phpunit/phpunit": "^10",
-        "spatie/laravel-ignition": "^2",
         "pestphp/pest": "^2",
-        "pestphp/pest-plugin-laravel": "^2"
+        "pestphp/pest-plugin-laravel": "^2",
+        "phpunit/phpunit": "^10",
+        "roave/security-advisories": "dev-latest",
+        "spatie/laravel-ignition": "^2"
     },
     "autoload": {
         "psr-4": {
