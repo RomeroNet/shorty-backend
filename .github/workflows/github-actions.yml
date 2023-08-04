@@ -27,8 +27,14 @@ jobs:
       - name: Generate encryption key
         run: docker-compose -f docker-compose.yml -f docker-compose-dev.yml run --rm php bash -c "php artisan key:generate"
 
-      - name: Start database and migrate
-        run: docker-compose -f docker-compose.yml -f docker-compose-dev.yml up -d db && docker-compose -f docker-compose.yml -f docker-compose-dev.yml run --rm php bash -c "php artisan migrate"
+      - name: Start database
+        run: docker-compose -f docker-compose.yml -f docker-compose-dev.yml up -d db
+
+      - name: Wait for database to start
+        run: docker-compose -f docker-compose.yml -f docker-compose-dev.yml run --rm php bash -c "while ! nc -z shorty-db 3306; do sleep 1; done"
+
+      - name: Run migrations
+        run: docker-compose -f docker-compose.yml -f docker-compose-dev.yml run --rm php bash -c "php artisan migrate"
 
       - name: Run tests
         run: make test
