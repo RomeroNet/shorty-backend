@@ -9,6 +9,6 @@ class Index extends Controller
 {
     public function get(): JsonResponse
     {
-        return response()->json(['status' => 'RomeroNet Boilerplate :)']);
+        return response()->json(['status' => 'Shorty is up and running!']);
     }
 }
