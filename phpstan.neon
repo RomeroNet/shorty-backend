@@ -1,0 +1,17 @@
+parameters:
+    level: max
+    paths:
+        - app
+        - tests
+    ignoreErrors:
+        - '#^Access to an undefined property Illuminate\\Database\\Eloquent.+$#'
+        - '#^Call to an undefined method Illuminate\\Database\\Eloquent.+$#'
+        -
+            message: '#Undefined variable: \$this#'
+            path: tests/*
+        -
+            message: '#^Call to an undefined method Mockery\\.+?$#'
+            path: tests/*
+        -
+            message: '#.+Mockery\\LegacyMockInterface given\.$#'
+            path: tests/*

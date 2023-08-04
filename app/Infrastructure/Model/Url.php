@@ -3,11 +3,11 @@
 namespace App\Infrastructure\Model;
 
 use App\Domain\Url\Url as DomainUrl;
+use Carbon\Carbon;
 use Database\Factories\UrlFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Carbon;
 
 /**
  * @property string $uuid

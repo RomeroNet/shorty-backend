@@ -25,7 +25,7 @@ it('should return content from get', function (
 
     if ($statusCode !== 200) {
         $data->assertJson([
-            'error' => $errorMessage,
+            'error' => $errorMessage ?? '',
         ]);
     }
 

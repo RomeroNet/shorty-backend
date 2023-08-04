@@ -62,7 +62,7 @@ it('should fetch an URL from origin and increase visit count', function (
 
     $this->assertEmpty($response->error);
     $this->assertInstanceOf(Url::class, $response->url);
-    $this->assertSame($response->url->visitCount, $visitCount + 1);
+    $this->assertSame($response->url?->visitCount, $visitCount + 1);
 })->with('FetchUrlFromOriginAndIncreaseVisitCount');
 
 dataset('FetchUrlFromOriginAndIncreaseVisitCount', [

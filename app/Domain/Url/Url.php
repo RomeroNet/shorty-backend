@@ -10,9 +10,9 @@ readonly class Url
         public string $uuid,
         public string $origin,
         public string $destination,
-        public int    $visitCount,
-        public Carbon $createdAt,
-        public Carbon $updatedAt,
+        public int $visitCount,
+        public ?Carbon $createdAt,
+        public ?Carbon $updatedAt,
     ) {
     }
 
@@ -28,6 +28,9 @@ readonly class Url
         );
     }
 
+    /**
+     * @return array{uuid: string, origin: string, destination: string, visit_count: int, created_at: ?Carbon, updated_at: ?Carbon}
+     */
     public function toArray(): array
     {
         return [

@@ -14,10 +14,10 @@ readonly class FetchUrlFromOriginAndIncreaseVisitCount
         private IncreaseVisitCount $increaseVisitCount,
     ) {}
 
-    public function handle(?string $origin): FetchUrlFromOriginAndIncreaseVisitCountResponse
+    public function handle(mixed $origin): FetchUrlFromOriginAndIncreaseVisitCountResponse
     {
         try {
-            if (empty($origin)) {
+            if (empty($origin) || !is_string($origin)) {
                 throw new InvalidArgumentException('Origin is required');
             }
 
