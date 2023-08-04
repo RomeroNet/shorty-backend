@@ -31,7 +31,7 @@ jobs:
         run: docker-compose -f docker-compose.yml -f docker-compose-dev.yml up -d db
 
       - name: Wait for database to start
-        run: sleep 5
+        run: sleep 10
 
       - name: Run migrations
         run: docker-compose -f docker-compose.yml -f docker-compose-dev.yml run --rm php bash -c "php artisan migrate"
