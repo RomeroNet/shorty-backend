@@ -3,7 +3,9 @@
 namespace App\Infrastructure\Model;
 
 use App\Domain\Url\Url as DomainUrl;
+use Database\Factories\UrlFactory;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
@@ -28,6 +30,8 @@ use Illuminate\Support\Carbon;
  */
 class Url extends Model
 {
+    use HasFactory;
+
     protected $primaryKey = 'uuid';
 
     protected $keyType = 'string';
@@ -37,6 +41,11 @@ class Url extends Model
     protected $guarded = [
         'uuid',
     ];
+
+    protected static function newFactory(): UrlFactory
+    {
+        return new UrlFactory();
+    }
 
     public function toDomainEntity(): DomainUrl
     {

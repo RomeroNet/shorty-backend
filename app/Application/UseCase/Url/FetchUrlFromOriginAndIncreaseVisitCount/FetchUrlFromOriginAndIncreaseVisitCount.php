@@ -2,29 +2,32 @@
 
 namespace App\Application\UseCase\Url\FetchUrlFromOriginAndIncreaseVisitCount;
 
-use App\Domain\Url\Url;
-use App\Domain\Url\UrlRepository;
+use App\Domain\Url\FetchUrlFromOrigin;
+use App\Domain\Url\IncreaseVisitCount;
+use InvalidArgumentException;
+use Throwable;
 
 readonly class FetchUrlFromOriginAndIncreaseVisitCount
 {
     public function __construct(
-        private UrlRepository $urlRepository,
+        private FetchUrlFromOrigin $fetchUrlFromOrigin,
+        private IncreaseVisitCount $increaseVisitCount,
     ) {}
 
     public function handle(?string $origin): FetchUrlFromOriginAndIncreaseVisitCountResponse
     {
-        if (empty($origin)) {
-            throw new \Exception();
+        try {
+            if (empty($origin)) {
+                throw new InvalidArgumentException();
+            }
+
+            $url = $this->fetchUrlFromOrigin->fetch($origin);
+            $url = $this->increaseVisitCount->increase($url);
+
+            return new FetchUrlFromOriginAndIncreaseVisitCountResponse($url);
+
+        } catch (Throwable $e) {
+            return new FetchUrlFromOriginAndIncreaseVisitCountResponse(error: $e);
         }
-
-        $url = $this->urlRepository->findByOrigin($origin);
-
-        if (!$url instanceof Url) {
-            throw new \Exception();
-        }
-
-        $this->urlRepository->save($url->increaseVisitCount());
-
-        return new FetchUrlFromOriginAndIncreaseVisitCountResponse($url);
     }
 }
