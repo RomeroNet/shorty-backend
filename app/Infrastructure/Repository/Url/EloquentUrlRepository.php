@@ -21,7 +21,7 @@ readonly class EloquentUrlRepository implements UrlRepository
             ?->toDomainEntity();
 
         if (!$url instanceof Url) {
-            throw new UrlNotFoundException();
+            throw new UrlNotFoundException(sprintf('Url with origin %s not found', $origin));
         }
 
         return $url;

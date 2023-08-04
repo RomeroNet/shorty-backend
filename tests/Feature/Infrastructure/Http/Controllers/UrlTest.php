@@ -7,18 +7,27 @@ it('should return content from get', function (
 ) {
     $url = ModelUrl::factory()->make();
     $url->save();
+    $parameter = '?origin=' . $url->origin;
 
     if ($statusCode === 404) {
+        $errorMessage = sprintf('Url with origin %s not found', $url->origin);
         $url->delete();
     }
 
-    $parameter = $statusCode === 400
-        ? ''
-        : '?origin=' . $url->origin;
+    if ($statusCode === 400) {
+        $errorMessage = 'Origin is required';
+        $parameter = '';
+    }
 
     $data = $this->get('/url' . $parameter);
 
     $data->assertStatus($statusCode);
+
+    if ($statusCode !== 200) {
+        $data->assertJson([
+            'error' => $errorMessage,
+        ]);
+    }
 
     if ($statusCode === 200) {
         $url->visit_count++;

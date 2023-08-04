@@ -18,7 +18,7 @@ readonly class FetchUrlFromOriginAndIncreaseVisitCount
     {
         try {
             if (empty($origin)) {
-                throw new InvalidArgumentException();
+                throw new InvalidArgumentException('Origin is required');
             }
 
             $url = $this->fetchUrlFromOrigin->fetch($origin);
