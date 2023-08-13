@@ -33,8 +33,14 @@ readonly class EloquentUrlRepository implements UrlRepository
 
     public function save(Url $url): void
     {
-        $this->model::find($url->uuid)
-            ?->fillFromDomainEntity($url)
-            ?->save();
+        $existing = $this->model::find($url->uuid);
+
+        if ($existing) {
+            $existing->fillFromDomainEntity($url)
+                ->save();
+            return;
+        }
+
+        $this->model::create($url->toArray());
     }
 }
