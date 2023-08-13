@@ -1,4 +1,4 @@
-FROM composer:2.5.5 AS dependencies
+FROM composer:2.5.8 AS dependencies
 
 ADD . /app
 
@@ -6,9 +6,7 @@ WORKDIR /app
 
 RUN composer install --no-dev --optimize-autoloader
 
-FROM php:8.2.5-fpm
-
-RUN docker-php-ext-install bcmath
+FROM ghcr.io/romeronet/base-images/php-prod:latest
 
 COPY --from=dependencies --chown=1000:1000 /app /app
 

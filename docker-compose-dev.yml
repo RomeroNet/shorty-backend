@@ -16,3 +16,10 @@ services:
     environment:
       - APP_ENV=local
       - APP_DEBUG=1
+      - PHP_IDE_CONFIG=serverName=shorty
+
+  db:
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: dev
