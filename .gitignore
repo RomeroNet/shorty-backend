@@ -16,3 +16,4 @@ yarn-error.log
 /.vscode
 /.phpunit.cache/test-results
 /tests/html
+.DS_Store
