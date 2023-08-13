@@ -34,9 +34,54 @@ it('should return content from get', function (
         $data->assertContent($url->toJson());
     }
 
-})->with('UrlController');
+})->with('UrlControllerGet');
 
-dataset('UrlController', [
+it('should create a URL from post', function (
+    int $statusCode,
+    bool $originIsEmpty = false,
+    bool $destinationIsEmpty = false,
+) {
+    $faker = Faker\Factory::create();
+    $parameters = [
+        'origin' => $originIsEmpty ? null : $faker->asciify('*****'),
+        'destination' => $destinationIsEmpty ? null : $faker->url(),
+    ];
+
+    $data = $this->post('/url', $parameters);
+
+    if ($statusCode === 409) {
+        $data = $this->post('/url', $parameters);
+    }
+
+    $data->assertStatus($statusCode);
+
+    if ($statusCode === 409) {
+        $data->assertJson([
+            'error' => 'Origin already exists',
+        ]);
+        return;
+    }
+    if ($originIsEmpty) {
+        $data->assertJson([
+            'error' => 'Origin is required',
+        ]);
+        return;
+    }
+    if ($destinationIsEmpty) {
+        $data->assertJson([
+            'error' => 'Destination is required',
+        ]);
+        return;
+    }
+
+    $data->assertJson([
+        'origin' => $parameters['origin'],
+        'destination' => $parameters['destination'],
+        'visit_count' => 0,
+    ]);
+})->with('UrlControllerPost');
+
+dataset('UrlControllerGet', [
     'when the url is found' => [
         'statusCode' => 200,
     ],
@@ -45,5 +90,23 @@ dataset('UrlController', [
     ],
     'when no origin is provided' => [
         'statusCode' => 400,
+    ],
+]);
+
+dataset('UrlControllerPost', [
+    'when the url is created' => [
+        'statusCode' => 200,
+    ],
+    'when no origin is provided' => [
+        'statusCode' => 400,
+        'originIsEmpty' => true,
+    ],
+    'when no destination is provided' => [
+        'statusCode' => 400,
+        'originIsEmpty' => false,
+        'destinationIsEmpty' => true,
+    ],
+    'when the origin is duplicated' => [
+        'statusCode' => 409,
     ],
 ]);

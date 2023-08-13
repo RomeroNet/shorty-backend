@@ -38,9 +38,7 @@ class Url extends Model
 
     public $incrementing = false;
 
-    protected $guarded = [
-        'uuid',
-    ];
+    protected $guarded = [];
 
     protected static function newFactory(): UrlFactory
     {
