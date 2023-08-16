@@ -8,6 +8,10 @@ use App\Domain\Url\UrlNotFoundException;
 use App\Domain\Url\UrlRepository;
 use Carbon\Carbon;
 
+beforeEach(function () {
+    Mockery::close();
+});
+
 it('should fetch an URL from origin and increase visit count', function (
     bool $originIsEmpty,
     bool $repositoryReturnsUrl,
@@ -56,13 +60,15 @@ it('should fetch an URL from origin and increase visit count', function (
     );
 
     if ($error) {
-        $this->assertInstanceOf($error, $response->error);
+        expect($response->error)->toBeInstanceOf($error);
         return;
     }
 
-    $this->assertEmpty($response->error);
-    $this->assertInstanceOf(Url::class, $response->url);
-    $this->assertSame($response->url?->visitCount, $visitCount + 1);
+    expect($response->error)->toBeNull()
+        ->and($response->url)
+        ->toBeInstanceOf(Url::class)
+        ->and($response->url?->visitCount)
+        ->toBe($visitCount + 1);
 })->with('FetchUrlFromOriginAndIncreaseVisitCount');
 
 dataset('FetchUrlFromOriginAndIncreaseVisitCount', [
