@@ -1,21 +1,11 @@
 <?php
 
-namespace Tests\Feature;
+use function Pest\Laravel\getJson;
 
-use Tests\TestCase;
+const EXPECTED_CONTENT = ['status' => 'Shorty is up and running!'];
 
-class IndexTest extends TestCase
-{
-    private const EXPECTED_CONTENT = ['status' => 'RomeroNet Boilerplate :)'];
-
-    /**
-     * @test
-     */
-    public function indexShouldWork(): void
-    {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
-        $response->assertContent(json_encode(self::EXPECTED_CONTENT));
-    }
-}
+it('should return some content', function () {
+    getJson('/')
+        ->assertJson(EXPECTED_CONTENT)
+        ->assertStatus(200);
+});

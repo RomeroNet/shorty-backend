@@ -2,26 +2,27 @@
 
 namespace App\Infrastructure\Providers;
 
+use App\Domain\Common\Uuid\UuidGeneratorInterface;
+use App\Domain\Url\UrlRepository;
+use App\Infrastructure\Common\Uuid\RamseyUuidGenerator;
+use App\Infrastructure\Repository\Url\EloquentUrlRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
+    public function register(): void
     {
-        //
+        $this->app->bind(
+            UrlRepository::class,
+            EloquentUrlRepository::class
+        );
+        $this->app->bind(
+            UuidGeneratorInterface::class,
+            RamseyUuidGenerator::class
+        );
     }
 
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
-    public function boot()
+    public function boot(): void
     {
         //
     }

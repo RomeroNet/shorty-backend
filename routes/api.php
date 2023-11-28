@@ -1,6 +1,7 @@
 <?php
 
 use App\Infrastructure\Http\Controllers\Index;
+use App\Infrastructure\Http\Controllers\Url;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,4 +17,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('throttle:60,1')->group(function () {
     Route::get('/', [Index::class, 'get']);
+    Route::get('/url', [Url::class, 'get']);
+    Route::post('/url', [Url::class, 'post']);
 });
