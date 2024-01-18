@@ -14,7 +14,7 @@ class UrlFactory extends Factory
     {
         return [
             'uuid' => fake()->uuid(),
-            'origin' => fake()->asciify('*****'),
+            'origin' => fake()->slug(1),
             'destination' => fake()->url(),
             'visit_count' => fake()->numberBetween(0, 100),
             'created_at' => Carbon::now(),

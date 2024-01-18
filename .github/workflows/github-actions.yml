@@ -39,6 +39,9 @@ jobs:
       - name: Run tests
         run: make test
 
+      - name: Check code quality
+        run: make quality
+
   test-dev-php-build:
     runs-on: ubuntu-latest
     steps:
