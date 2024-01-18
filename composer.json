@@ -3,7 +3,7 @@
     "type": "project",
     "description": "RomeroNet Laravel boilerplate.",
     "require": {
-        "php": "^8.2",
+        "php": "^8.3",
         "doctrine/dbal": "^3.7",
         "guzzlehttp/guzzle": "^7",
         "laravel/framework": "^10",
