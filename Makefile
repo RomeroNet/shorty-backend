@@ -9,6 +9,9 @@ shell:
 	docker-compose -f docker-compose.yml -f docker-compose-dev.yml run --rm php bash
 test:
 	docker-compose -f docker-compose.yml -f docker-compose-dev.yml run --rm php vendor/bin/pest
+quality:
+	docker-compose -f docker-compose.yml -f docker-compose-dev.yml run --rm php vendor/bin/phpstan --memory-limit=4G
+	docker-compose -f docker-compose.yml -f docker-compose-dev.yml run --rm php vendor/bin/infection
 
 build:
 	docker-compose -f docker-compose.yml build
