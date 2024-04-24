@@ -24,6 +24,7 @@ jobs:
       - name: Use composer cache
         uses: actions/cache@v4
         with:
+          key: composer-cache
           path: vendor
 
       - name: Prepare test Docker image
