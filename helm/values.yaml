@@ -1,0 +1,14 @@
+mysql:
+  name: shorty-backend-mysql
+  replicas: 1
+  volume:
+    name: shorty-backend-mysql-storage
+    mountPath: /var/lib/mysql
+    class: nfs-client
+    pvc:
+      name: shorty-backend-mysql-volume-claim
+    requests:
+      storage: 500Mi
+  container:
+    image: mysql:8.0.34
+    port: 3306
