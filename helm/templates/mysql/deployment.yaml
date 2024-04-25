@@ -23,6 +23,21 @@ spec:
           image: {{ .Values.mysql.container.image }}
           ports:
             - containerPort: {{ .Values.mysql.container.port }}
+          env:
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.mysql.secret.name }}
+                  key: {{ .Values.mysql.secret.keys.username }}
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.mysql.secret.name }}
+                  key: {{ .Values.mysql.secret.keys.password }}
+            - name: MYSQL_DATABASE
+              value: {{ .Values.mysql.database }}
+            - name: MYSQL_RANDOM_ROOT_PASSWORD
+              value: "yes"
           volumeMounts:
             - mountPath: {{ .Values.mysql.volume.mountPath }}
               name: {{ .Values.mysql.volume.name }}
