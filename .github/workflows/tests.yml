@@ -1,6 +1,11 @@
 name: Run tests
 
-on: [push, pull_request, workflow_dispatch]
+on:
+  push:
+    branches-ignore:
+      - main
+      - develop
+  pull_request:
 
 permissions:
   contents: read
@@ -10,10 +15,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up BuildX
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
 
       - name: Set up .env file
         run: cp .env.example .env
@@ -52,13 +57,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up BuildX
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
 
       - name: Build Docker image for PHP
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v5
         with:
           context: ./docker/dev/php
 
@@ -66,13 +71,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up BuildX
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
 
       - name: Build Docker image for web
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v5
         with:
           context: ./docker/dev/nginx
 
@@ -80,13 +85,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up BuildX
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
 
       - name: Build Docker image for PHP
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v5
         with:
           context: .
           file: docker/prod/php/Dockerfile
@@ -95,13 +100,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up BuildX
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
 
       - name: Build Docker image for web
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v5
         with:
           context: .
           file: docker/prod/nginx/Dockerfile
