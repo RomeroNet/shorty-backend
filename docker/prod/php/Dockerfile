@@ -10,4 +10,6 @@ FROM ghcr.io/romeronet/base-images/php-prod:latest
 
 COPY --from=dependencies --chown=1000:1000 /app /app
 
+RUN chown -R 1000:1000 /app
+
 WORKDIR /app

@@ -25,8 +25,16 @@ nginx:
   replicas: 1
   servicePort: 80
   container:
-    image: nginx:latest
+    image: ghcr.io/romeronet/shorty-backend/nginx:dev
     port: 80
   ingress:
     host: dev-shorty.romeronet.es
     tlsSecret: shorty-backend-tls
+
+php:
+  name: shorty-backend-php
+  replicas: 1
+  servicePort: 9000
+  container:
+    image: ghcr.io/romeronet/shorty-backend/php:dev
+    port: 9000

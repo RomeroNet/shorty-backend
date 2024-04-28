@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.php.name }}
+  labels:
+    app: {{ .Values.php.name }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.php.name }}
+  replicas: {{ .Values.php.replicas }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.php.name }}
+    spec:
+      containers:
+        - name: {{ .Values.php.name }}
+          image: {{ .Values.php.container.image }}
+          ports:
+            - containerPort: {{ .Values.php.container.port }}
+          env:
+            - name: DB_HOST
+              value: {{ .Values.mysql.name }}
+            - name: DB_DATABASE
+              value: {{ .Values.mysql.database }}
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.mysql.secret.name}}
+                  key: {{ .Values.mysql.secret.keys.username }}
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.mysql.secret.name}}
+                  key: {{ .Values.mysql.secret.keys.password }}
+            - name: APP_ENV
+              value: "dev"
+            - name: APP_DEBUG
+              value: "1"
