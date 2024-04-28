@@ -91,3 +91,10 @@ jobs:
         run: |
           helm upgrade --install -n shorty-dev shorty-backend helm \
             --set sha=${{ github.sha }}
+
+      - name: Run migrations
+        run: |
+          sleep 15 && \
+          kubectl exec -it \
+          $(kubectl get pods -n shorty-dev -o custom-columns=name:.metadata.name | grep php) \
+          -n shorty-dev -- php artisan migrate

@@ -94,3 +94,10 @@ jobs:
             --set nginx.ingress.host=shorty.romeronet.es \
             --set php.app.env=production \
             --set php.app.debug=0
+
+      - name: Run migrations
+        run: |
+          sleep 15 && \
+          kubectl exec -it \
+          $(kubectl get pods -n shorty-prod -o custom-columns=name:.metadata.name | grep php) \
+          -n shorty-dev -- php artisan migrate
