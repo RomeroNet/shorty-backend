@@ -90,5 +90,5 @@ jobs:
 
       - name: Deploy to Kubernetes
         run: |
-          helm upgrade -n shorty shorty-backend helm/shorty-backend \
+          helm upgrade -n shorty shorty-backend helm \
             --set sha=${{ github.sha }}
