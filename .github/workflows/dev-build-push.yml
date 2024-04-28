@@ -69,3 +69,26 @@ jobs:
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.USER }}/${{ env.REPOSITORY }}/php:${{ github.sha }}
 
+  deploy:
+    runs-on: ubuntu-latest
+    needs:
+      - build-php
+      - build-nginx
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v4
+
+      - name: Set up helm
+        uses: azure/setup-helm@v4
+
+      - name: Set up kubeconfig
+        run: mkdir -p ~/.kube && echo "${{ secrets.KUBECTL_CONTENT }}" > ~/.kube/config
+
+      - name: Deploy to Kubernetes
+        run: |
+          helm upgrade -n shorty shorty-backend helm/shorty-backend \
+            --set sha=${{ github.sha }}
