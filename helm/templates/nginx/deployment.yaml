@@ -17,5 +17,9 @@ spec:
       containers:
         - name: {{ .Values.nginx.name }}
           image: {{ .Values.nginx.container.image }}
+          imagePullPolicy: Always
           ports:
             - containerPort: {{ .Values.nginx.container.port }}
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000

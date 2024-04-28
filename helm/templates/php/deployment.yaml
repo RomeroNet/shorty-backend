@@ -17,8 +17,12 @@ spec:
       containers:
         - name: {{ .Values.php.name }}
           image: {{ .Values.php.container.image }}
+          imagePullPolicy: Always
           ports:
             - containerPort: {{ .Values.php.container.port }}
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
           env:
             - name: DB_HOST
               value: {{ .Values.mysql.name }}
