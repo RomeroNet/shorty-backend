@@ -1,0 +1,45 @@
+sha: image-sha
+
+mysql:
+  name: shorty-backend-mysql
+  replicas: 1
+  servicePort: 3306
+  database: shorty
+  volume:
+    name: shorty-backend-mysql-storage
+    mountPath: /var/lib/mysql
+    class: nfs-client
+    pvc:
+      name: shorty-backend-mysql-volume-claim
+    requests:
+      storage: 500Mi
+  container:
+    image: mysql:8.0.34
+    port: 3306
+  secret:
+      name: mysql-credentials
+      keys:
+        username: user
+        password: password
+
+nginx:
+  name: shorty-backend-nginx
+  replicas: 1
+  servicePort: 80
+  container:
+    image: ghcr.io/romeronet/shorty-backend/nginx
+    port: 80
+  ingress:
+    host: dev-shorty.romeronet.es
+    tlsSecret: shorty-backend-tls
+
+php:
+  name: shorty-backend-php
+  replicas: 1
+  servicePort: 9000
+  container:
+    image: ghcr.io/romeronet/shorty-backend/php
+    port: 9000
+  app:
+    env: dev
+    debug: 1
