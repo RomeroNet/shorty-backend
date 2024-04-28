@@ -3,7 +3,7 @@ name: Build and push dev images
 on:
   push:
     branches:
-      - develop
+      - main
   workflow_dispatch:
 
 permissions:
@@ -89,5 +89,8 @@ jobs:
 
       - name: Deploy to Kubernetes
         run: |
-          helm upgrade --install -n shorty-dev shorty-backend helm \
-            --set sha=${{ github.sha }}
+          helm upgrade --install -n shorty-prod shorty-backend helm \
+            --set sha=${{ github.sha }} \
+            --set nginx.ingress.host=shorty.romeronet.es \
+            --set php.app.env=production \
+            --set php.app.debug=0

@@ -40,3 +40,6 @@ php:
   container:
     image: ghcr.io/romeronet/shorty-backend/php
     port: 9000
+  app:
+    env: dev
+    debug: 1

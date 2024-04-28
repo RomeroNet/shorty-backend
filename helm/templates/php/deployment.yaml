@@ -39,6 +39,6 @@ spec:
                   name: {{ .Values.mysql.secret.name}}
                   key: {{ .Values.mysql.secret.keys.password }}
             - name: APP_ENV
-              value: "dev"
+              value: {{ .Values.php.app.env }}
             - name: APP_DEBUG
-              value: "1"
+              value: "{{ .Values.php.app.debug }}"
