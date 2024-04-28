@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - develop
+      - feat/add-helm-chart
   workflow_dispatch:
 
 permissions:
