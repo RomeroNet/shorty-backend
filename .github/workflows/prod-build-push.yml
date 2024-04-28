@@ -100,4 +100,4 @@ jobs:
           sleep 15 && \
           kubectl exec -it \
           $(kubectl get pods -n shorty-prod -o custom-columns=name:.metadata.name | grep php) \
-          -n shorty-prod -- php artisan migrate
+          -n shorty-prod -- php artisan migrate --force
