@@ -1,4 +1,4 @@
-FROM composer:2.6.5 AS dependencies
+FROM composer:2.7.4 AS dependencies
 
 ADD . /app
 
