@@ -25,7 +25,7 @@ nginx:
   replicas: 1
   servicePort: 80
   container:
-    image: ghcr.io/romeronet/shorty-backend/nginx:dev
+    image: ghcr.io/romeronet/shorty-backend/nginx:$GITHUB_SHA
     port: 80
   ingress:
     host: dev-shorty.romeronet.es
@@ -36,5 +36,5 @@ php:
   replicas: 1
   servicePort: 9000
   container:
-    image: ghcr.io/romeronet/shorty-backend/php:dev
+    image: ghcr.io/romeronet/shorty-backend/php:$GITHUB_SHA
     port: 9000

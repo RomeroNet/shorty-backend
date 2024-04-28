@@ -40,7 +40,7 @@ jobs:
           file: docker/prod/nginx/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.USER }}/${{ env.REPOSITORY }}/nginx:dev
+          tags: ${{ env.REGISTRY }}/${{ env.USER }}/${{ env.REPOSITORY }}/nginx:${{ env.GITHUB_SHA }}
 
   build-php:
     runs-on: ubuntu-latest
@@ -66,4 +66,5 @@ jobs:
           file: docker/prod/php/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.USER }}/${{ env.REPOSITORY }}/php:dev
+          tags: ${{ env.REGISTRY }}/${{ env.USER }}/${{ env.REPOSITORY }}/php:${{ env.GITHUB_SHA }}
+
