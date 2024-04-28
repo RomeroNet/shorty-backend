@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: {{ .Values.nginx.name }}
-          image: {{ .Values.nginx.container.image }}
+          image: {{ .Values.nginx.container.image }}:{{.Values.sha }}
           imagePullPolicy: Always
           ports:
             - containerPort: {{ .Values.nginx.container.port }}

@@ -1,3 +1,5 @@
+sha: image-sha
+
 mysql:
   name: shorty-backend-mysql
   replicas: 1
@@ -25,7 +27,7 @@ nginx:
   replicas: 1
   servicePort: 80
   container:
-    image: ghcr.io/romeronet/shorty-backend/nginx:$GITHUB_SHA
+    image: ghcr.io/romeronet/shorty-backend/nginx
     port: 80
   ingress:
     host: dev-shorty.romeronet.es
@@ -36,5 +38,5 @@ php:
   replicas: 1
   servicePort: 9000
   container:
-    image: ghcr.io/romeronet/shorty-backend/php:$GITHUB_SHA
+    image: ghcr.io/romeronet/shorty-backend/php
     port: 9000

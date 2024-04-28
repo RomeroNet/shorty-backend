@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: {{ .Values.php.name }}
-          image: {{ .Values.php.container.image }}
+          image: {{ .Values.php.container.image }}:{{ .Values.sha }}
           imagePullPolicy: Always
           ports:
             - containerPort: {{ .Values.php.container.port }}
