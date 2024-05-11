@@ -69,9 +69,9 @@ it('should fetch an URL from origin and increase visit count', function (
         ->toBeInstanceOf(Url::class)
         ->and($response->url?->visitCount)
         ->toBe($visitCount + 1);
-})->with('FetchUrlFromOriginAndIncreaseVisitCount');
+})->with('fetch URL from origin and increase visit count');
 
-dataset('FetchUrlFromOriginAndIncreaseVisitCount', [
+dataset('fetch URL from origin and increase visit count', [
     'when repository returns an URL' => [
         'originIsEmpty' => false,
         'repositoryReturnsUrl' => true,

@@ -71,9 +71,9 @@ it('should create an URL from input', function (
         ->toBe($origin)
         ->and($response->url?->destination)
         ->toBe($destination);
-})->with('CreateUrl');
+})->with('create url');
 
-dataset('CreateUrl', [
+dataset('create url', [
     'when origin and destination are not empty' => [
         'hasOrigin' => true,
         'hasDestination' => true,

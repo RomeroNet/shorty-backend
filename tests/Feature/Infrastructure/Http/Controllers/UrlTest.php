@@ -19,7 +19,7 @@ it('should return content from get', function (
         $parameter = '';
     }
 
-    $data = $this->get('/url' . $parameter);
+    $data = $this->get('/api/url' . $parameter);
 
     $data->assertStatus($statusCode);
 
@@ -34,7 +34,7 @@ it('should return content from get', function (
         $data->assertContent($url->toJson());
     }
 
-})->with('UrlControllerGet');
+})->with('url controller get');
 
 it('should create a URL from post', function (
     int $statusCode,
@@ -47,10 +47,10 @@ it('should create a URL from post', function (
         'destination' => $destinationIsEmpty ? null : $faker->url(),
     ];
 
-    $data = $this->post('/url', $parameters);
+    $data = $this->post('/api/url', $parameters);
 
     if ($statusCode === 409) {
-        $data = $this->post('/url', $parameters);
+        $data = $this->post('/api/url', $parameters);
     }
 
     $data->assertStatus($statusCode);
@@ -79,9 +79,9 @@ it('should create a URL from post', function (
         'destination' => $parameters['destination'],
         'visit_count' => 0,
     ]);
-})->with('UrlControllerPost');
+})->with('url controller post');
 
-dataset('UrlControllerGet', [
+dataset('url controller get', [
     'when the url is found' => [
         'statusCode' => 200,
     ],
@@ -93,7 +93,7 @@ dataset('UrlControllerGet', [
     ],
 ]);
 
-dataset('UrlControllerPost', [
+dataset('url controller post', [
     'when the url is created' => [
         'statusCode' => 200,
     ],
