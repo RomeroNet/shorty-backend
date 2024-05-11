@@ -32,6 +32,7 @@ nginx:
   ingress:
     host: dev-shorty.romeronet.es
     tlsSecret: shorty-backend-tls
+    path: /api
 
 php:
   name: shorty-backend-php

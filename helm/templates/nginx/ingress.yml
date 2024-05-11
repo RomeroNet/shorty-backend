@@ -11,7 +11,7 @@ spec:
     - host: {{ .Values.nginx.ingress.host }}
       http:
         paths:
-          - path: /
+          - path: {{ .Values.nginx.ingress.path }}
             pathType: Prefix
             backend:
               service:
