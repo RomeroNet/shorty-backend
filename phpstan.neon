@@ -3,6 +3,7 @@ parameters:
     paths:
         - app
         - tests
+    reportUnmatchedIgnoredErrors: false
     ignoreErrors:
         - '#^Access to an undefined property Illuminate\\Database\\Eloquent.+$#'
         - '#^Call to an undefined method Illuminate\\Database\\Eloquent.+$#'
