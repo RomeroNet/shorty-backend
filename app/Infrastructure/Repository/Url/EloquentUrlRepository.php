@@ -14,6 +14,9 @@ readonly class EloquentUrlRepository implements UrlRepository
         private Model $model
     ) {}
 
+    /**
+     * @throws UrlNotFoundException
+     */
     public function findByOrigin(string $origin): Url
     {
         /** @var Builder $query */

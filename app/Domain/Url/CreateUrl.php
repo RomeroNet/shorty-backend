@@ -12,10 +12,15 @@ readonly class CreateUrl
         private UuidGeneratorInterface $uuidGenerator,
     ) {}
 
+    /**
+     * @throws InvalidUrlException
+     */
     public function create(
         string $origin,
         string $destination
     ): Url {
+        $this->validateDestination($destination);
+
         $url = new Url(
             $this->uuidGenerator->generate(),
             $origin,
@@ -28,5 +33,15 @@ readonly class CreateUrl
         $this->urlRepository->save($url);
 
         return $url;
+    }
+
+    /**
+     * @throws InvalidUrlException
+     */
+    private function validateDestination(string $destination): void
+    {
+        if (!filter_var($destination, FILTER_VALIDATE_URL)) {
+            throw new InvalidUrlException('Destination is invalid');
+        }
     }
 }

@@ -3,6 +3,7 @@ parameters:
     paths:
         - app
         - tests
+    reportUnmatchedIgnoredErrors: false
     ignoreErrors:
         - '#^Access to an undefined property Illuminate\\Database\\Eloquent.+$#'
         - '#^Call to an undefined method Illuminate\\Database\\Eloquent.+$#'
@@ -15,4 +16,7 @@ parameters:
             path: tests/*
         -
             message: '#^.+?::toBeInstanceOf\(\) expects class-string, string given.$#'
+            path: tests/*
+        -
+            message: '#Mockery\\LegacyMockInterface given.$#'
             path: tests/*
