@@ -7,6 +7,9 @@ readonly class FetchUrlFromOrigin
     public function __construct(private UrlRepository $urlRepository)
     {}
 
+    /**
+     * @throws UrlNotFoundException
+     */
     public function fetch(string $origin): Url
     {
         return $this->urlRepository->findByOrigin($origin);

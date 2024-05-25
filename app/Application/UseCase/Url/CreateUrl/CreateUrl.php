@@ -17,16 +17,11 @@ readonly class CreateUrl
     ) {}
 
     public function handle(
-        mixed $origin,
-        mixed $destination
+        string $origin,
+        string $destination
     ): CreateUrlResponse {
         try {
-            if (empty($origin) || !is_string($origin)) {
-                throw new InvalidArgumentException('Origin is required');
-            }
-            if (empty($destination) || !is_string($destination)) {
-                throw new InvalidArgumentException('Destination is required');
-            }
+            $this->validateInput($origin, $destination);
 
             try {
                 $this->fetchUrlFromOrigin->fetch($origin);
@@ -34,13 +29,20 @@ readonly class CreateUrl
             } catch (UrlNotFoundException) {
             }
 
-            $url = $this->createUrlService->create(
-                $origin,
-                $destination
-            );
+            $url = $this->createUrlService->create($origin, $destination);
             return new CreateUrlResponse($url);
         } catch (Throwable $e) {
             return new CreateUrlResponse(error: $e);
+        }
+    }
+
+    private function validateInput(mixed $origin, mixed $destination): void
+    {
+        if (empty($origin)) {
+            throw new InvalidArgumentException('Origin is required');
+        }
+        if (empty($destination)) {
+            throw new InvalidArgumentException('Destination is required');
         }
     }
 }

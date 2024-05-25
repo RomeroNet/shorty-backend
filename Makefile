@@ -7,8 +7,12 @@ stop-dev:
 	docker-compose -f docker-compose.yml -f docker-compose-dev.yml down
 shell:
 	docker-compose -f docker-compose.yml -f docker-compose-dev.yml run --rm php bash
-test:
-	docker-compose -f docker-compose.yml -f docker-compose-dev.yml run --rm php vendor/bin/pest
+test: test-unit test-integration
+test-unit:
+	docker-compose -f docker-compose.yml -f docker-compose-dev.yml run --rm php vendor/bin/pest tests/Unit
+test-integration:
+	docker-compose -f docker-compose.yml -f docker-compose-dev.yml run --rm php vendor/bin/pest tests/Feature
+
 quality:
 	docker-compose -f docker-compose.yml -f docker-compose-dev.yml run --rm php vendor/bin/phpstan --memory-limit=4G
 	docker-compose -f docker-compose.yml -f docker-compose-dev.yml run --rm php vendor/bin/infection

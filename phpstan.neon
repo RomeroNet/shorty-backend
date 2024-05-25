@@ -16,3 +16,6 @@ parameters:
         -
             message: '#^.+?::toBeInstanceOf\(\) expects class-string, string given.$#'
             path: tests/*
+        -
+            message: '#Mockery\\LegacyMockInterface given.$#'
+            path: tests/*

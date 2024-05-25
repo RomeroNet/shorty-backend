@@ -5,6 +5,7 @@ use App\Domain\Common\Uuid\UuidGeneratorInterface;
 use App\Domain\Url\CreateUrl as CreateUrlDomain;
 use App\Domain\Url\DuplicatedOriginException;
 use App\Domain\Url\FetchUrlFromOrigin;
+use App\Domain\Url\InvalidUrlException;
 use App\Domain\Url\Url;
 use App\Domain\Url\UrlNotFoundException;
 use App\Domain\Url\UrlRepository;
@@ -20,16 +21,16 @@ it('should create an URL from input', function (
     ?string $error
 ) {
     $faker = Faker\Factory::create();
-    $origin = $hasOrigin ? $faker->asciify('*****') : null;
-    $destination = $hasDestination ? $faker->url() : null;
+    $origin = $hasOrigin ? $faker->asciify('*****') : '';
+    $destination = $hasDestination ? $faker->url() : '';
 
     $urlRepository = Mockery::mock(UrlRepository::class);
 
     if ($repositoryReturnsUrl) {
         $url = new Url(
             $faker->uuid(),
-            $origin ?? '',
-            $destination ?? '',
+            $origin,
+            $destination,
             0,
             null,
             null,
@@ -60,7 +61,8 @@ it('should create an URL from input', function (
     $response = $service->handle($origin, $destination);
 
     if ($error) {
-        expect($response->error)->toBeInstanceOf($error);
+        expect($response->error)->toBeInstanceOf($error)
+            ->and($response->url)->toBeNull();
         return;
     }
 
@@ -99,4 +101,33 @@ dataset('create url', [
         'error' => DuplicatedOriginException::class,
     ],
 ]);
+
+it('should try to create an invalid URL', function () {
+    $faker = Faker\Factory::create();
+
+    $origin = $faker->asciify('*****');
+    $destination = 'invalid';
+
+    $urlRepository = Mockery::mock(UrlRepository::class);
+    $urlRepository->shouldReceive('findByOrigin')
+        ->with($origin)
+        ->andThrow(new UrlNotFoundException());
+    $urlRepository->shouldNotReceive('save');
+
+    $uuidGenerator = Mockery::mock(UuidGeneratorInterface::class);
+    $uuidGenerator->shouldReceive('generate')->andReturn($faker->uuid());
+
+    $fetchUrl = new FetchUrlFromOrigin($urlRepository);
+    $createUrl = new CreateUrlDomain($urlRepository, $uuidGenerator);
+
+    $service = new CreateUrl(
+        $fetchUrl,
+        $createUrl
+    );
+
+    $response = $service->handle($origin, $destination);
+
+    expect($response->error)->toBeInstanceOf(InvalidUrlException::class)
+        ->and($response->url)->toBeNull();
+});
 

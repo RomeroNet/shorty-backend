@@ -5,6 +5,7 @@ namespace App\Infrastructure\Http\Controllers;
 use App\Application\UseCase\Url\CreateUrl\CreateUrl;
 use App\Application\UseCase\Url\FetchUrlFromOriginAndIncreaseVisitCount\FetchUrlFromOriginAndIncreaseVisitCount;
 use App\Domain\Url\DuplicatedOriginException;
+use App\Domain\Url\InvalidUrlException;
 use App\Domain\Url\UrlNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -36,8 +37,8 @@ class Url extends Controller
 
     public function post(Request $request): JsonResponse
     {
-        $origin = $request->input('origin');
-        $destination = $request->input('destination');
+        $origin = $request->string('origin', '');
+        $destination = $request->string('destination', '');
 
         $response = $this->createUrl->handle($origin, $destination);
 
@@ -56,7 +57,7 @@ class Url extends Controller
             $code = 404;
         }
 
-        if ($error instanceof InvalidArgumentException) {
+        if ($error instanceof InvalidArgumentException || $error instanceof InvalidUrlException) {
             $code = 400;
         }
 

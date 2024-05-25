@@ -81,6 +81,21 @@ it('should create a URL from post', function (
     ]);
 })->with('url controller post');
 
+it('should fail creating an URL with an invalid origin', function () {
+    $faker = Faker\Factory::create();
+    $parameters = [
+        'origin' => $faker->asciify('*****'),
+        'destination' => 'invaliddestination.com',
+    ];
+
+    $data = $this->post('/api/url', $parameters);
+
+    $data->assertStatus(400);
+    $data->assertJson([
+        'error' => 'Destination is invalid',
+    ]);
+});
+
 dataset('url controller get', [
     'when the url is found' => [
         'statusCode' => 200,
